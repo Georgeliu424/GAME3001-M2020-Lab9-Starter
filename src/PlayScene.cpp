@@ -123,14 +123,16 @@ void PlayScene::handleEvents()
 		}
 	}
 
-	if (!m_bHpressed)
+	//H Key Section
+
+	if (!m_bDebugKeys[H_KEY])
 	{
-	
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
 		{
 			//toogles Debug mode
 			m_bDebugMode = !m_bDebugMode;
 
-			m_bHpressed = true;
+			m_bDebugKeys[H_KEY] = true;
 
 			if (m_bDebugMode)
 			{
@@ -145,8 +147,52 @@ void PlayScene::handleEvents()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
 	{
-		m_bHpressed = false;
+		m_bDebugKeys[H_KEY] = false;
 	}
+
+	//K Key Section 
+
+	if (!m_bDebugKeys[K_KEY])
+	{
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_K))
+		{
+			std::cout << "DEBUG: Enemies taking demage !" << std::endl;
+
+			m_bDebugKeys[K_KEY] = true;
+		}
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_K))
+		{
+			m_bDebugKeys[K_KEY] = false;
+		}
+
+		// P KEY Section 
+
+		if (!m_bDebugKeys[P_KEY])
+		{
+			if (EventManager::Instance().isKeyDown(SDL_SCANCODE_P))
+			{
+				//toogles Patrol mode
+				m_bPatrolMode = !m_bPatrolMode;
+
+				m_bDebugKeys[P_KEY] = true;
+
+				if (m_bDebugMode)
+				{
+					std::cout << "Debug : Patrol On" << std::endl;
+				}
+				else
+				{
+					std::cout << "Debug: Patrol Off" << std::endl;
+				}
+			}
+		}
+
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_P))
+		{
+			m_bDebugKeys[P_KEY] = false;
+		}
+
+
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
@@ -167,7 +213,7 @@ void PlayScene::handleEvents()
 void PlayScene::start()
 {
 	m_bDebugMode = false;
-	m_bHpressed = false;
+	m_bPatrolMode = false;
 
 	// Plane Sprite
 	m_pPlaneSprite = new Plane();
